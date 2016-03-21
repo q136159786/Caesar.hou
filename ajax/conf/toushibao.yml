@@ -1,0 +1,30 @@
+logging:
+     level: DEBUG 
+     appenders:
+         - type: console
+           threshold: INFO
+           target: stderr
+         - type: file
+           threshold: INFO
+           currentLogFilename: ./logs/comm-ajax.log
+           archivedLogFilenamePattern: ./logs/comm-ajax-%d.log.gz
+           archivedFileCount: 5
+         - type: file
+           threshold: DEBUG
+           currentLogFilename: ./logs/toushibaoDebug.log
+           archivedLogFilenamePattern: ./logs/toushibaoDebug-%d.log.gz
+           archivedFileCount: 5
+server:
+     applicationConnectors:
+         - type: http
+           port: 6588
+     adminConnectors:
+         - type: http
+           port: 6589 
+suroClusterConfig:
+         clientType: sync
+         loadBalancerServer: 10.0.1.63:7101, 10.0.1.64:7101
+         loadBalancerType: static
+         maxSize: 1024000
+         threadNum: 2           #the thread number of sending data to suro
+         queueSize: 5000       #send queue size
